@@ -26,7 +26,7 @@ public:
                 ans.push_back(curar);
                 curar.clear();
                 q = nq;
-                while(!nq.empty()) nq.pop();
+                nq = *new queue<TreeNode*>();
             }
         }
         return ans;
