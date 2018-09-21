@@ -15,26 +15,21 @@ public:
         vector<int> ans;
         bool done[n];
         memset(done,0,sizeof(done));
-        while(true){
-            bool flag = false;
-            int curn = 0;
-            for(int i=0;i<n;++i){
-                if(done[i]) continue;
-                if(inmap[i].size()==0){
-                    flag = true;
-                    curn = i;
-                    ans.push_back(i);
-                    done[i] = 1;
-                    break;
-                }
-                
+        queue<int> q;
+        for(int i=0;i<n;++i){
+            if(inmap[i].size()==0){
+                q.push(i);
             }
-            if(!flag) break;
+        }
+        while(!q.empty()){
+            int curn = q.front();
+            q.pop();
+            ans.push_back(curn);
             for(auto n:outmap[curn]){
                 auto cit = find(inmap[n].begin(), inmap[n].end(), curn);
                 inmap[n].erase(cit);
+                if(inmap[n].size()==0) q.push(n);
             }
-            outmap[curn].clear();
         }
         if(ans.size()==n){
             return ans;
